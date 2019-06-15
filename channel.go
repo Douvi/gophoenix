@@ -31,14 +31,14 @@ func (ch *Channel) Push(event string, payload interface{}, replyHandler func(pay
 
 // Reply sends a message on the topic.
 func (ch *Channel) Reply(ref int64, channel string, event string, payload interface{}) error {
-	msg := &Message{
+	reply := &Message{
 		Topic:   channel,
 		Event:   event,
 		Payload: payload,
 		Ref:     ref,
 	}
 
-	return ch.t.Push(msg)
+	return ch.PushNoReply(string(ReplyEvent), reply)
 }
 
 // PushNoReply sends a message on the topic but does not provide a callback to receive replies.
