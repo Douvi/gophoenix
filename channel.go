@@ -30,15 +30,21 @@ func (ch *Channel) Push(event string, payload interface{}, replyHandler func(pay
 }
 
 // Reply sends a message on the topic.
-func (ch *Channel) Reply(ref int64, channel string, event string, payload interface{}) error {
-	reply := &Message{
-		Topic:   channel,
-		Event:   event,
-		Payload: payload,
-		Ref:     ref,
+func (ch *Channel) Reply(refm RefMessage, event string, payload interface{}, e error) error {
+	err := ""
+	if e != nil {
+		err = e.Error()
 	}
 
-	return ch.PushNoReply(string(ReplyEvent), reply)
+	reply := &PlayloadOut{
+		Ref:     refm,
+		Event:   event,
+		Payload: payload,
+		Error:   err,
+	}
+
+	ref := ch.rc.nextRef()
+	return ch.sendMessage(ref, string(ReplyEvent), reply)
 }
 
 // PushNoReply sends a message on the topic but does not provide a callback to receive replies.

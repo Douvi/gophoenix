@@ -19,3 +19,10 @@ type PlayloadIn struct {
 	Ref     RefMessage  `json:"ref"`
 	Payload interface{} `json:"payload"`
 }
+
+type PlayloadOut struct {
+	Ref     RefMessage  `json:"ref"`
+	Event   string      `json:"event"`
+	Payload interface{} `json:"payload"`
+	Error   string      `json:"error"`
+}
