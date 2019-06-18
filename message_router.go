@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"sync"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 type messageRouter struct {
@@ -48,9 +50,9 @@ func (mr *messageRouter) NotifyMessage(msg *Message) {
 		mr.unsubscribe(msg.Topic)
 	default:
 		fmt.Println("msg.Payload:", msg.Payload)
-		playloadIn, ok := msg.Payload.(PlayloadIn)
-		fmt.Println("playloadIn:", playloadIn, " - ok:", ok)
-		if ok {
+		playloadIn := &PlayloadIn{}
+		err := mapstructure.Decode(msg.Payload, &playloadIn)
+		if err != nil {
 			tr.cr.OnMessageToReply(playloadIn.Ref, string(msg.Event), playloadIn.Payload)
 		} else {
 			tr.cr.OnMessage(string(msg.Event), msg.Payload)
