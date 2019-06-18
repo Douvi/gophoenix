@@ -49,7 +49,6 @@ func (mr *messageRouter) NotifyMessage(msg *Message) {
 		tr.cr.OnChannelClose(msg.Payload)
 		mr.unsubscribe(msg.Topic)
 	default:
-		fmt.Println("msg.Payload:", msg.Payload)
 		playloadIn := &PlayloadIn{}
 		err := mapstructure.Decode(msg.Payload, &playloadIn)
 		if err != nil {
