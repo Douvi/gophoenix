@@ -47,7 +47,14 @@ func (mr *messageRouter) NotifyMessage(msg *Message) {
 		tr.cr.OnChannelClose(msg.Payload)
 		mr.unsubscribe(msg.Topic)
 	default:
-		tr.cr.OnMessage(msg.Ref, string(msg.Event), msg.Payload)
+		fmt.Println("msg.Payload:", msg.Payload)
+		playloadIn, ok := msg.Payload.(PlayloadIn)
+		fmt.Println("playloadIn:", playloadIn, " - ok:", ok)
+		if ok {
+			tr.cr.OnMessageToReply(playloadIn.Ref, string(msg.Event), playloadIn.Payload)
+		} else {
+			tr.cr.OnMessage(string(msg.Event), msg.Payload)
+		}
 	}
 }
 

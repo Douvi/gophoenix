@@ -9,5 +9,7 @@ type ChannelReceiver interface {
 	// Invoked after the server closes a Channel.
 	OnChannelClose(payload interface{})
 	// Invoked when a message from the server arrives.
-	OnMessage(ref int64, event string, payload interface{})
+	OnMessage(event string, payload interface{})
+	// Invoked when a message from the server arrives.
+	OnMessageToReply(refMessage RefMessage, event string, payload interface{})
 }
