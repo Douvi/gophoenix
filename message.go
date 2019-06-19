@@ -10,7 +10,7 @@ type Message struct {
 
 type RefMessage struct {
 	UserID  string `json:"user_id"`
-	Topic   string `json:"topic"`
+	Channel string `json:"channel"`
 	Ref     int64  `json:"ref"`
 	JoinRef int64  `json:"join_ref"`
 }
@@ -22,7 +22,7 @@ type PlayloadIn struct {
 
 type PlayloadOut struct {
 	Ref     RefMessage  `json:"ref"`
-	Event   string      `json:"event"`
+	Topic   string      `json:"topic"`
 	Payload interface{} `json:"payload"`
 	Error   string      `json:"error"`
 }
