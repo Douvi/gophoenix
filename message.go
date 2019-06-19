@@ -8,20 +8,13 @@ type Message struct {
 	Ref     int64       `json:"ref"`
 }
 
-type RefMessage struct {
-	UserID  string `json:"user_id"`
-	Topic   string `json:"topic"`
-	Ref     string `json:"ref"`
-	JoinRef string `json:"join_ref"`
-}
-
 type PlayloadIn struct {
-	Ref     RefMessage  `json:"ref"`
+	Ref     interface{} `json:"ref"`
 	Payload interface{} `json:"payload"`
 }
 
 type PlayloadOut struct {
-	Ref     RefMessage  `json:"ref"`
+	Ref     interface{} `json:"ref"`
 	Event   string      `json:"event"`
 	Payload interface{} `json:"payload"`
 	Error   string      `json:"error"`

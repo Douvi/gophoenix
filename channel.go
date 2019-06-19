@@ -30,7 +30,7 @@ func (ch *Channel) Push(event string, payload interface{}, replyHandler func(pay
 }
 
 // Reply sends a message on the topic.
-func (ch *Channel) Reply(refm RefMessage, event string, payload interface{}, e error) error {
+func (ch *Channel) Reply(refm interface{}, event string, payload interface{}, e error) error {
 	err := ""
 	if e != nil {
 		err = e.Error()

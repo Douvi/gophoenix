@@ -11,5 +11,5 @@ type ChannelReceiver interface {
 	// Invoked when a message from the server arrives.
 	OnMessage(event string, payload interface{})
 	// Invoked when a message from the server arrives.
-	OnMessageToReply(refMessage RefMessage, event string, payload interface{})
+	OnMessageToReply(refMessage interface{}, event string, payload interface{})
 }
