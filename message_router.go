@@ -51,6 +51,7 @@ func (mr *messageRouter) NotifyMessage(msg *Message) {
 	default:
 		playloadIn := &PlayloadIn{}
 		err := mapstructure.Decode(msg.Payload, &playloadIn)
+		fmt.Println("err: ", err)
 		if err != nil {
 			tr.cr.OnMessageToReply(playloadIn.Ref, string(msg.Event), playloadIn.Payload)
 		} else {
