@@ -11,8 +11,8 @@ type Message struct {
 type RefMessage struct {
 	UserID  string `json:"user_id"`
 	Topic   string `json:"topic"`
-	Ref     int64  `json:"ref"`
-	JoinRef int64  `json:"join_ref"`
+	Ref     string `json:"ref"`
+	JoinRef string `json:"join_ref"`
 }
 
 type PlayloadIn struct {
