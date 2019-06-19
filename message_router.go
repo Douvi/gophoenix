@@ -52,7 +52,7 @@ func (mr *messageRouter) NotifyMessage(msg *Message) {
 		playloadIn := &PlayloadIn{}
 		err := mapstructure.Decode(msg.Payload, &playloadIn)
 		fmt.Println("err: ", err)
-		if err != nil {
+		if err == nil {
 			tr.cr.OnMessageToReply(playloadIn.Ref, string(msg.Event), playloadIn.Payload)
 		} else {
 			tr.cr.OnMessage(string(msg.Event), msg.Payload)
