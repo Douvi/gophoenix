@@ -1,0 +1,33 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      env: 
+        ENV: stg
+        MAIN_RS_PATH: https://stg-api.rockspoon.io/
+        EMAIL: ${{ secrets.EMAIL }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        KEY: ${{ secrets.PASSWORD }}
+        PAGE_ACL: https://rockspoon.atlassian.net/wiki/spaces/RO/pages/1029210215/ACL
+        HOOKS: https://hooks.slack.com/services/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
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+
+    - name: Build
+      run: go build -v ./...
+
+    - name: Test
+      run: go test -v ./...
